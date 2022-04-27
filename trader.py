@@ -2,11 +2,13 @@ if __name__ == '__main__':
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--training',
-                       default='testing.csv',
+                       default='training_data.csv',
                        help='input training data file name')
-
+	parser.add_argument('--testing',
+                        default='testing_data.csv',
+                        help='input testing data file name')
 	parser.add_argument('--output',
-                        default='output.csv.csv',
+                        default='output.csv',
                         help='output file name')
 	args = parser.parse_args()
 
@@ -28,7 +30,7 @@ if __name__ == '__main__':
 		return np.array(dataX), np.array(dataY)
 
 	# 載入訓練資料集
-	train = read_csv('training.csv', usecols=[0])
+	train = read_csv(args.training, usecols=[0])
 	train = train.values
 	train = train.astype('float32')
 	print(train.shape)
@@ -36,7 +38,7 @@ if __name__ == '__main__':
 	scaler = MinMaxScaler(feature_range=(0, 1))
 	train = scaler.fit_transform(train)
 	# 載入測試資料集
-	test = read_csv('testing.csv', usecols=[0])
+	test = read_csv(args.testing, usecols=[0])
 	test = test.values
 	test = test.astype('float32')
 	# Normalize 資料
@@ -100,7 +102,7 @@ if __name__ == '__main__':
 				ans[i]=0
 	import csv
 	# 寫入答案
-	with open('output.csv', 'w', newline='') as csvfile:
+	with open(args.output, 'w', newline='') as csvfile:
 		writer = csv.writer(csvfile)
 		for i in range(19):
 			writer.writerow([int(ans[i])])
