@@ -16,4 +16,4 @@
 
 最後將答案寫入output
 
-執行時直接 py trader.py即可
+執行時直接  py trader.py --training "training.csv" --testing "testing.csv" --output output.csv即可
